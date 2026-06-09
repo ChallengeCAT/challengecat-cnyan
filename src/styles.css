@@ -538,7 +538,7 @@ body {
 
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -579,11 +579,266 @@ body {
 
 .demo-card p,
 .split-section p,
+.flow-step p,
+.board-preview-copy p,
+.board-post p,
+.board-compose p,
 .ask-panel p,
 .answer-panel p,
 .route-step p {
   color: rgba(255, 255, 255, 0.66);
   line-height: 1.6;
+}
+
+.flow-section {
+  background: rgba(4, 8, 10, 0.42);
+}
+
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.flow-step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  min-height: 13rem;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(5, 10, 13, 0.74);
+  color: white;
+  text-align: left;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.flow-step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(112, 255, 129, 0.38);
+  background: rgba(70, 255, 122, 0.07);
+}
+
+.flow-step span,
+.board-compose > span,
+.board-toolbar span,
+.post-top span {
+  color: #70ff81;
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.flow-step strong {
+  display: block;
+  color: #ffd166;
+  font-size: 1.15rem;
+}
+
+.flow-step p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.board-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(22rem, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.board-preview-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.board-page {
+  min-height: calc(100svh - 4.4rem);
+  padding: 4rem clamp(1rem, 4vw, 3rem);
+}
+
+.board-layout {
+  display: grid;
+  grid-template-columns: minmax(19rem, 24rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.board-compose,
+.board-main,
+.board-post {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(5, 10, 13, 0.75);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+.board-compose {
+  position: sticky;
+  top: 5.6rem;
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+}
+
+.board-compose h2 {
+  margin: 0;
+  font-family: "Arial Black", Impact, system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.board-compose p,
+.board-preview-copy p {
+  margin: 0;
+}
+
+.board-compose form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.board-compose label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.board-compose label span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.board-compose input,
+.board-compose select,
+.board-compose textarea {
+  width: 100%;
+  min-height: 2.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(5, 10, 17, 0.8);
+  color: white;
+  padding: 0 0.85rem;
+}
+
+.board-compose textarea {
+  min-height: 8rem;
+  padding-top: 0.8rem;
+  resize: vertical;
+}
+
+.board-compose input:focus,
+.board-compose select:focus,
+.board-compose textarea:focus {
+  border-color: rgba(70, 255, 122, 0.62);
+  box-shadow: 0 0 0 3px rgba(70, 255, 122, 0.1);
+}
+
+.board-main {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.board-toolbar {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.board-toolbar strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: #ffd166;
+  font-size: 1.2rem;
+}
+
+.board-filters {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.board-post-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.board-post {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+.board-post.compact {
+  min-height: 11rem;
+}
+
+.post-top,
+.post-meta,
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.post-top,
+.post-meta {
+  justify-content: space-between;
+}
+
+.post-top button {
+  min-height: 2.1rem;
+  border: 1px solid rgba(255, 209, 102, 0.34);
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.1);
+  color: #ffd166;
+  padding: 0 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.post-top strong {
+  color: #ffd166;
+}
+
+.board-post h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  line-height: 1.15;
+}
+
+.board-post p {
+  margin: 0;
+}
+
+.post-meta {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.post-actions {
+  flex-wrap: wrap;
+}
+
+.post-actions button {
+  min-height: 2.4rem;
+  border: 1px solid rgba(45, 170, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(45, 170, 255, 0.08);
+  color: rgba(255, 255, 255, 0.78);
+  padding: 0 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
 }
 
 .split-section {
@@ -621,14 +876,23 @@ body {
 }
 
 .demo-top {
-  max-width: 55rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem;
+  max-width: 68rem;
   margin-bottom: 2rem;
+}
+
+.demo-top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
 .back-button {
   width: auto;
   min-height: 2.6rem;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0;
   padding: 0 1rem;
 }
 
@@ -1190,11 +1454,22 @@ body {
   }
   .demo-grid,
   .route-board {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .flow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .answer-layout,
   .dex-layout,
-  .split-section {
+  .split-section,
+  .board-preview,
+  .board-layout {
+    grid-template-columns: 1fr;
+  }
+  .board-compose {
+    position: static;
+  }
+  .board-toolbar {
     grid-template-columns: 1fr;
   }
   .challenger-shell { overflow: visible; }
@@ -1251,8 +1526,34 @@ body {
     min-height: 78svh;
   }
   .demo-grid,
-  .route-board {
+  .route-board,
+  .flow-grid {
     grid-template-columns: 1fr;
+  }
+  .flow-step {
+    min-height: auto;
+  }
+  .board-page,
+  .demo-page {
+    padding: 2rem 1rem;
+  }
+  .board-main,
+  .board-compose,
+  .board-post {
+    padding: 0.85rem;
+  }
+  .board-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .post-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .post-actions button {
+    width: 100%;
+  }
+  .demo-top-nav .back-button {
+    flex: 1 1 calc(50% - 0.55rem);
   }
   .demo-card {
     grid-template-rows: 11rem minmax(0, 1fr);

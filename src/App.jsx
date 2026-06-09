@@ -26,6 +26,13 @@ const images = {
 
 const demoCards = [
   {
+    id: "board",
+    title: "CNYAN Board",
+    label: "Community hub",
+    copy: "Post mission ideas, coordinate proof, and surface the next challenge candidates.",
+    image: images.community,
+  },
+  {
     id: "challenge",
     title: "CNYAN Challenge Demo",
     label: "Bounty map",
@@ -52,6 +59,53 @@ const demoCards = [
     label: "Swap / Liquidity / Rewards",
     copy: "A DEX concept connecting CNYAN posting fees, reward settlement, liquidity, burn, and treasury flows.",
     image: images.community,
+  },
+];
+
+const flowSteps = [
+  ["01", "Check token", "Use the live chart, CA, price, and swap routes before entering the network.", "dex"],
+  ["02", "Post on board", "Publish mission ideas, proof requests, route alerts, or liquidity notes.", "board"],
+  ["03", "Clear challenge", "Move from a board post into the challenge map and submit proof.", "challenge"],
+  ["04", "Review route", "Use AI Answer and Route demos to explain why a mission should settle.", "answer"],
+  ["05", "Settle value", "Connect rewards, swaps, liquidity, burn, and treasury flow in the DEX concept.", "dex"],
+];
+
+const defaultBoardPosts = [
+  {
+    id: "tokyo-night",
+    tag: "Mission",
+    title: "Tokyo night proof sprint",
+    author: "RouteCat",
+    time: "12m ago",
+    body: "Need three clean station photos, one short CNYAN caption, and a public post link before reward review.",
+    votes: 42,
+  },
+  {
+    id: "seoul-route",
+    tag: "Route",
+    title: "Seoul to Taipei route check",
+    author: "MintScout",
+    time: "28m ago",
+    body: "Proof flow looks simple enough for a first cross-city route. Requesting AI Answer review before launch.",
+    votes: 31,
+  },
+  {
+    id: "liquidity-note",
+    tag: "DEX",
+    title: "Liquidity note for reward claims",
+    author: "GoldPaw",
+    time: "46m ago",
+    body: "Route rewards should point users to the same CNYAN-SOL swap path used by the top token module.",
+    votes: 24,
+  },
+  {
+    id: "proof-standard",
+    tag: "Proof",
+    title: "Suggested proof standard",
+    author: "NekoRider",
+    time: "1h ago",
+    body: "A valid proof packet should include location, timestamp, image, post URL, and mission tag.",
+    votes: 19,
   },
 ];
 
@@ -89,16 +143,20 @@ const feed = [
 
 const titleMap = {
   home: "CNYAN",
+  board: "CNYAN - Board",
   challenge: "CNYAN - Challenge",
   answer: "CNYAN - AI Answer",
   route: "CNYAN - Route",
   dex: "CNYAN - DEX",
 };
 
+const validViews = new Set(Object.keys(titleMap));
+
 function normalizeView(nextView) {
   if (nextView === "legacy-answer") return "answer";
   if (nextView === "legacy-route") return "route";
-  return nextView || "home";
+  if (!nextView) return "home";
+  return validViews.has(nextView) ? nextView : "home";
 }
 
 function savedName() {
@@ -109,12 +167,26 @@ function savedName() {
   }
 }
 
+function savedBoardPosts() {
+  try {
+    const raw = localStorage.getItem("cnyan-board-posts");
+    if (!raw) return defaultBoardPosts;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length ? parsed : defaultBoardPosts;
+  } catch {
+    return defaultBoardPosts;
+  }
+}
+
 export default function App() {
   const [view, setView] = useState(() => normalizeView(window.location.hash.replace("#", "")));
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const onHashChange = () => setView(normalizeView(window.location.hash.replace("#", "")));
+    const onHashChange = () => {
+      setView(normalizeView(window.location.hash.replace("#", "")));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
@@ -144,6 +216,7 @@ export default function App() {
         <>
           <SiteHeader onNavigate={navigate} />
           {view === "home" && <HomeSite onNavigate={navigate} />}
+          {view === "board" && <BoardDemo onNavigate={navigate} />}
           {view === "answer" && <AnswerDemo onNavigate={navigate} />}
           {view === "route" && <RouteDemo onNavigate={navigate} />}
           {view === "dex" && <DexDemo onNavigate={navigate} />}
@@ -172,6 +245,7 @@ function SiteHeader({ onNavigate }) {
       </button>
       <nav>
         <button type="button" onClick={() => onNavigate("home")}>Home</button>
+        <button type="button" onClick={() => onNavigate("board")}>Board</button>
         <button type="button" onClick={() => onNavigate("challenge")}>Challenge</button>
         <button type="button" onClick={() => onNavigate("answer")}>AI Answer</button>
         <button type="button" onClick={() => onNavigate("route")}>Route</button>
@@ -185,45 +259,9 @@ function HomeSite({ onNavigate }) {
   return (
     <>
       <TokenSpotlight onNavigate={onNavigate} />
-      <section className="intro-hero">
-        <img className="intro-hero-bg" src={images.hero} alt="" />
-        <FloatingCoins />
-        <div className="hero-copy">
-          <p>CNYAN Network</p>
-          <SplitHeading text="WE ARE CNYAN" />
-          <span>
-            CNYAN connects mission creators, challengers, proof submissions, and token rewards in one community reward network.
-            Move from the introduction into live demos without leaving the page.
-          </span>
-          <div className="hero-actions">
-            <button className="primary-button sized" type="button" onClick={() => onNavigate("challenge")}>Launch challenge</button>
-            <a className="secondary-link" href="#demo-directory">Explore demos</a>
-          </div>
-        </div>
-      </section>
-      <section id="demo-directory" className="section">
-        <SectionTitle label="Demo Hub" title="Explore the core CNYAN demos" />
-        <div className="demo-grid">
-          {demoCards.map((card) => (
-            <DemoCard key={card.id} card={card} onNavigate={onNavigate} />
-          ))}
-        </div>
-      </section>
-      <section className="section split-section">
-        <div>
-          <SectionTitle label="What CNYAN does" title="Missions, proof, and rewards in one loop" align="left" />
-          <p>
-            CNYAN is a prototype for community missions: creators post tasks, participants submit proof,
-            and approved work can settle into CNYAN or SOL rewards.
-          </p>
-        </div>
-        <div className="feature-list">
-          <button type="button" onClick={() => onNavigate("challenge")}>Challenge: choose a mission and submit proof</button>
-          <button type="button" onClick={() => onNavigate("answer")}>AI Answer: generate route decisions from proof signals</button>
-          <button type="button" onClick={() => onNavigate("route")}>Route: verify route progress and move toward rewards</button>
-          <button type="button" onClick={() => onNavigate("dex")}>DEX: connect swaps, liquidity, and reward settlement</button>
-        </div>
-      </section>
+      <NetworkFlow onNavigate={onNavigate} />
+      <BoardPreview onNavigate={onNavigate} />
+      <DemoDirectory onNavigate={onNavigate} />
     </>
   );
 }
@@ -256,8 +294,69 @@ function TokenSpotlight({ onNavigate }) {
         <PriceTradePanel compact />
         <div className="token-shortcuts">
           <button className="secondary-button" type="button" onClick={() => onNavigate("dex")}>DEX details</button>
+          <button className="secondary-button" type="button" onClick={() => onNavigate("board")}>Community board</button>
           <button className="secondary-button" type="button" onClick={() => onNavigate("challenge")}>Challenge demo</button>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function NetworkFlow({ onNavigate }) {
+  return (
+    <section className="section flow-section">
+      <SectionTitle label="Network Flow" title="One path from token interest to challenge settlement" />
+      <div className="flow-grid">
+        {flowSteps.map(([number, title, copy, target]) => (
+          <button key={number} className="flow-step" type="button" onClick={() => onNavigate(target)}>
+            <span>{number}</span>
+            <strong>{title}</strong>
+            <p>{copy}</p>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BoardPreview({ onNavigate }) {
+  return (
+    <section className="section board-preview">
+      <div className="board-preview-copy">
+        <SectionTitle label="Community Board" title="Turn discussion into missions" align="left" />
+        <p>
+          The board keeps mission ideas, proof requests, route notes, and DEX updates in one place.
+          Each post can lead directly into a challenge, route review, or swap decision.
+        </p>
+        <div className="hero-actions">
+          <button className="primary-button sized" type="button" onClick={() => onNavigate("board")}>Open board</button>
+          <button className="secondary-button sized" type="button" onClick={() => onNavigate("challenge")}>Start challenge</button>
+        </div>
+      </div>
+      <div className="board-preview-list">
+        {defaultBoardPosts.slice(0, 3).map((post) => (
+          <article key={post.id} className="board-post compact">
+            <div className="post-top">
+              <span>{post.tag}</span>
+              <strong>{post.votes}</strong>
+            </div>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DemoDirectory({ onNavigate }) {
+  return (
+    <section id="demo-directory" className="section">
+      <SectionTitle label="Demo Hub" title="Choose the next part of the network" />
+      <div className="demo-grid">
+        {demoCards.map((card) => (
+          <DemoCard key={card.id} card={card} onNavigate={onNavigate} />
+        ))}
       </div>
     </section>
   );
@@ -424,6 +523,111 @@ function PriceTradePanel({ compact = false }) {
   );
 }
 
+function BoardDemo({ onNavigate }) {
+  const [posts, setPosts] = useState(savedBoardPosts);
+  const [activeTag, setActiveTag] = useState("All");
+  const [draft, setDraft] = useState({ title: "", body: "", tag: "Mission" });
+
+  const tags = ["All", "Mission", "Proof", "Route", "DEX"];
+  const visiblePosts = activeTag === "All" ? posts : posts.filter((post) => post.tag === activeTag);
+
+  function persist(nextPosts) {
+    setPosts(nextPosts);
+    try {
+      localStorage.setItem("cnyan-board-posts", JSON.stringify(nextPosts));
+    } catch {
+      // Local storage can fail in private browsing; the board still works for the session.
+    }
+  }
+
+  function submitPost(event) {
+    event.preventDefault();
+    const title = draft.title.trim().slice(0, 72);
+    const body = draft.body.trim().slice(0, 240);
+    if (!title || !body) return;
+    persist([
+      {
+        id: `post-${Date.now()}`,
+        tag: draft.tag,
+        title,
+        author: "Guest",
+        time: "now",
+        body,
+        votes: 1,
+      },
+      ...posts,
+    ]);
+    setDraft({ title: "", body: "", tag: draft.tag });
+  }
+
+  function vote(postId) {
+    persist(posts.map((post) => (post.id === postId ? { ...post, votes: post.votes + 1 } : post)));
+  }
+
+  return (
+    <section className="board-page">
+      <DemoTop onNavigate={onNavigate} title="CNYAN Board" label="Community mission hub" />
+      <div className="board-layout">
+        <aside className="board-compose">
+          <span>New post</span>
+          <h2>Coordinate the next mission</h2>
+          <p>Post mission ideas, proof requests, route alerts, or DEX notes. This demo stores posts in this browser.</p>
+          <form onSubmit={submitPost}>
+            <label>
+              <span>Type</span>
+              <select value={draft.tag} onChange={(event) => setDraft({ ...draft, tag: event.target.value })}>
+                {tags.filter((tag) => tag !== "All").map((tag) => <option key={tag}>{tag}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Title</span>
+              <input value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="Mission title" maxLength={72} />
+            </label>
+            <label>
+              <span>Details</span>
+              <textarea value={draft.body} onChange={(event) => setDraft({ ...draft, body: event.target.value })} placeholder="Proof, route, reward, or liquidity note..." maxLength={240} />
+            </label>
+            <button className="primary-button" type="submit">Post to board</button>
+          </form>
+        </aside>
+        <div className="board-main">
+          <div className="board-toolbar">
+            <div>
+              <span>Live board</span>
+              <strong>{visiblePosts.length} posts</strong>
+            </div>
+            <div className="filter-row board-filters">
+              {tags.map((tag) => (
+                <button key={tag} className={activeTag === tag ? "active" : ""} type="button" onClick={() => setActiveTag(tag)}>{tag}</button>
+              ))}
+            </div>
+          </div>
+          <div className="board-post-list">
+            {visiblePosts.map((post) => (
+              <article key={post.id} className="board-post">
+                <div className="post-top">
+                  <span>{post.tag}</span>
+                  <button type="button" onClick={() => vote(post.id)}>+ {post.votes}</button>
+                </div>
+                <h3>{post.title}</h3>
+                <p>{post.body}</p>
+                <div className="post-meta">
+                  <span>{post.author}</span>
+                  <span>{post.time}</span>
+                </div>
+                <div className="post-actions">
+                  <button type="button" onClick={() => onNavigate("challenge")}>Open challenge</button>
+                  <button type="button" onClick={() => onNavigate(post.tag === "DEX" ? "dex" : "answer")}>{post.tag === "DEX" ? "Open DEX" : "Review with AI"}</button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function AnswerDemo({ onNavigate }) {
   return (
     <section className="demo-page">
@@ -520,9 +724,16 @@ function DexDemo({ onNavigate }) {
 function DemoTop({ onNavigate, title, label }) {
   return (
     <div className="demo-top">
-      <button className="secondary-button back-button" type="button" onClick={() => onNavigate("home")}>Back to home</button>
-      <p>{label}</p>
-      <h1>{title}</h1>
+      <div className="demo-top-nav">
+        <button className="secondary-button back-button" type="button" onClick={() => onNavigate("home")}>Home</button>
+        <button className="secondary-button back-button" type="button" onClick={() => onNavigate("board")}>Board</button>
+        <button className="secondary-button back-button" type="button" onClick={() => onNavigate("challenge")}>Challenge</button>
+        <button className="secondary-button back-button" type="button" onClick={() => onNavigate("dex")}>DEX</button>
+      </div>
+      <div>
+        <p>{label}</p>
+        <h1>{title}</h1>
+      </div>
     </div>
   );
 }
@@ -607,6 +818,7 @@ function TopBar({ name, mode, setMode, active, claimedCount, onHome, onDemo }) {
         </div>
       </button>
       <div className="topbar-actions">
+        <button className="small-nav" type="button" onClick={() => onDemo("board")}>Board</button>
         <button className="small-nav" type="button" onClick={() => onDemo("answer")}>AI Answer</button>
         <button className="small-nav" type="button" onClick={() => onDemo("route")}>Route</button>
         <div className="segmented" aria-label="Map mode">
