@@ -33,6 +33,13 @@ const demoCards = [
     copy: "探索ルート、Proof提出、検証、報酬の受け取りまでの流れをチャレンジ形式で確認できます。",
     image: images.travel,
   },
+  {
+    id: "dex",
+    title: "CNYAN DEX Concept",
+    label: "Swap / Liquidity / Rewards",
+    copy: "CNYANの投稿fee、報酬決済、流動性、バーン、トレジャリーをつなぐDEX構想です。",
+    image: images.community,
+  },
 ];
 
 const drops = [
@@ -111,6 +118,7 @@ export default function App() {
           {view === "home" && <HomeSite onNavigate={navigate} />}
           {view === "perplex" && <PerplexDemo onNavigate={navigate} />}
           {view === "odyssey" && <OdysseyDemo onNavigate={navigate} />}
+          {view === "dex" && <DexDemo onNavigate={navigate} />}
         </>
       )}
     </main>
@@ -139,6 +147,7 @@ function SiteHeader({ onNavigate }) {
         <button type="button" onClick={() => onNavigate("challenge")}>Challenge</button>
         <button type="button" onClick={() => onNavigate("perplex")}>Perplex</button>
         <button type="button" onClick={() => onNavigate("odyssey")}>Odyssey</button>
+        <button type="button" onClick={() => onNavigate("dex")}>DEX</button>
       </nav>
     </header>
   );
@@ -182,6 +191,7 @@ function HomeSite({ onNavigate }) {
           <button type="button" onClick={() => onNavigate("challenge")}>Challenge: ミッションを選んでProofを提出</button>
           <button type="button" onClick={() => onNavigate("perplex")}>Perplex: ノード情報から回答を生成</button>
           <button type="button" onClick={() => onNavigate("odyssey")}>Odyssey: ルートを検証して報酬へ進む</button>
+          <button type="button" onClick={() => onNavigate("dex")}>DEX: Swap、流動性、報酬決済を設計</button>
         </div>
       </section>
     </>
@@ -293,6 +303,45 @@ function OdysseyDemo({ onNavigate }) {
       </div>
       <div className="route-map">
         <img src={mapImage} alt="Odyssey route map" />
+      </div>
+    </section>
+  );
+}
+
+function DexDemo({ onNavigate }) {
+  const lanes = [
+    ["Quest Fees", "Challenge投稿feeをCNYAN需要として設計。"],
+    ["Reward Settlement", "CNYAN / SOL / USDC報酬を安全に決済。"],
+    ["Liquidity Pools", "CNYAN-SOLを中心にルート流動性を形成。"],
+    ["Burn + Treasury", "一部をバーン、一部をトレジャリーへ配分。"],
+  ];
+
+  return (
+    <section className="demo-page">
+      <DemoTop onNavigate={onNavigate} title="CNYAN DEX Concept" label="Quest-native exchange layer" />
+      <div className="dex-layout">
+        <div className="answer-panel">
+          <span>DEX Thesis</span>
+          <h3>チャレンジ経済圏に必要な交換・決済レイヤーを作る。</h3>
+          <p>
+            CNYAN DEXは単なるSwap画面ではなく、Quest投稿fee、Claim deposit、報酬決済、流動性、バーン、トレジャリーをつなぐための設計です。
+            Quest Protocolの活動量が、そのままCNYANの利用文脈になります。
+          </p>
+          <div className="evidence-list">
+            <p>Post Quest: 投稿feeがCNYAN需要を作る。</p>
+            <p>Claim Quest: depositで荒らしを抑え、完了時に返却する。</p>
+            <p>Prove + Settle: AI/creator/community確認後に報酬を決済する。</p>
+          </div>
+        </div>
+        <div className="odyssey-board dex-board">
+          {lanes.map(([title, copy], index) => (
+            <div key={title} className="route-step">
+              <span>0{index + 1}</span>
+              <strong>{title}</strong>
+              <p>{copy}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -301,7 +301,7 @@ body {
 
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -399,6 +399,16 @@ body {
   display: grid;
   grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
   gap: 1rem;
+}
+
+.dex-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.dex-board {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .ask-panel,
@@ -933,6 +943,7 @@ body {
     grid-template-columns: 1fr 1fr;
   }
   .perplex-layout,
+  .dex-layout,
   .split-section {
     grid-template-columns: 1fr;
   }

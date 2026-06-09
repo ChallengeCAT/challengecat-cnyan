@@ -36,6 +36,15 @@ Useful explorer links:
 └── README.md             # Main repository overview
 ```
 
+Key docs:
+
+- [`docs/TOKEN.md`](docs/TOKEN.md) - CA, Solana token notes, explorer links
+- [`docs/QUEST_PROTOCOL.md`](docs/QUEST_PROTOCOL.md) - CNYAN quest lifecycle and AI verification model
+- [`docs/DEX_CONCEPT.md`](docs/DEX_CONCEPT.md) - CNYAN DEX, liquidity, fees, settlement, treasury concept
+- [`docs/REFERENCE_ANALYSIS.md`](docs/REFERENCE_ANALYSIS.md) - reference analysis and originality boundary
+- [`docs/AI_EVALUATION.md`](docs/AI_EVALUATION.md) - AI reviewer prompt and repository quality checklist
+- [`docs/REPOSITORY_GUIDE.md`](docs/REPOSITORY_GUIDE.md) - publishing guidance and identity safety rules
+
 ## Product Direction
 
 CNYAN is designed as a community reward layer:
@@ -45,13 +54,28 @@ CNYAN is designed as a community reward layer:
 - Review the result.
 - Reward contributors with CNYAN or SOL.
 
+The protocol direction is:
+
+```text
+Post Quest -> Claim Quest -> Submit Proof -> Verify -> Settle Reward
+```
+
 The current demo includes:
 
 - A CNYAN introduction site.
 - A Challenge bounty map.
 - A Perplex-style answer demo using Odyssey Network context.
 - An Odyssey route challenge demo.
+- A CNYAN DEX concept demo.
 - PerpSquad-inspired motion translated into original CNYAN assets: loading splash, floating coins, split-letter headlines, animated panels, and map pins.
+
+The DEX concept connects:
+
+- CNYAN posting fees
+- CNYAN/SOL reward settlement
+- CNYAN/SOL and CNYAN/USDC liquidity
+- burn / treasury / incentive allocation
+- quest-native swap and payout flows
 
 ## Solana Token Elements
 
@@ -96,6 +120,7 @@ Routes:
 - `/#challenge` - Challenge bounty map
 - `/#perplex` - Perplex-style Odyssey answer demo
 - `/#odyssey` - Odyssey route challenge demo
+- `/#dex` - CNYAN DEX concept
 
 ## Privacy & Identity Policy
 
@@ -138,6 +163,9 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 - Challengeバウンティマップ
 - Odyssey Networkを使ったPerplex風デモ
 - Odysseyルートチャレンジデモ
+- CNYAN DEX構想
+- Quest Protocol構想
+- AI評価用チェックリスト
 - Solanaトークン情報
 - Token metadata draft
 - 多言語ドキュメント
@@ -168,6 +196,9 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 - Challenge 赏金地图
 - 基于 Odyssey Network 的 Perplex 风格演示
 - Odyssey 路线挑战演示
+- CNYAN DEX 概念
+- Quest Protocol 概念
+- AI 评估清单
 - Solana Token 信息
 - Token metadata 草案
 - 多语言文档
@@ -198,6 +229,9 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 - Challenge 바운티 맵
 - Odyssey Network 기반 Perplex 스타일 데모
 - Odyssey 루트 챌린지 데모
+- CNYAN DEX 콘셉트
+- Quest Protocol 콘셉트
+- AI 평가 체크리스트
 - Solana 토큰 정보
 - Token metadata draft
 - 다국어 문서
