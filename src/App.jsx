@@ -2,12 +2,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CA = "Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump";
+const NYANMARU_CA = "FpECzw6x8RG4VBXfnVg3UJd8pq9CCxJUSWCKb4gebq8B";
 const SOL_CAIP = "solana:101/address:So11111111111111111111111111111111111111112";
 const CNYAN_CAIP = `solana:101/address:${CA}`;
+const NYANMARU_CAIP = `solana:101/address:${NYANMARU_CA}`;
 const PUBLIC_SITE_URL = "https://challengecat.github.io/challengecat-cnyan/";
 const DEXSCREENER_API = `https://api.dexscreener.com/token-pairs/v1/solana/${CA}`;
 const DEXSCREENER_URL = `https://dexscreener.com/solana/${CA}`;
 const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
+const PHANTOM_NYANMARU_TO_CNYAN_URL = `https://phantom.app/ul/v1/swap?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(NYANMARU_CAIP)}`;
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const logo = asset("/cnyan-logo.png");
@@ -25,28 +28,28 @@ const demoCards = [
     id: "challenge",
     title: "CNYAN Challenge Demo",
     label: "Bounty map",
-    copy: "都市ごとのミッションを選び、Proofを提出し、CNYANまたはSOLの報酬を受け取る体験を確認できます。",
+    copy: "Pick city missions, submit proof, and preview CNYAN or SOL reward flows.",
     image: images.challenge,
   },
   {
     id: "answer",
     title: "AI Answer Demo",
     label: "Route intelligence",
-    copy: "ルート情報、地域、Proofの集まりやすさをもとに、質問、根拠、回答までを一画面で見せるAI回答デモです。",
+    copy: "Use route data, region signals, and proof availability to show a question, answer, and evidence in one screen.",
     image: images.trade,
   },
   {
     id: "route",
     title: "Route Challenge Demo",
     label: "Route proof",
-    copy: "探索ルート、Proof提出、検証、報酬の受け取りまでの流れをチャレンジ形式で確認できます。",
+    copy: "Preview the flow from route selection and proof submission to verification and reward settlement.",
     image: images.travel,
   },
   {
     id: "dex",
     title: "CNYAN DEX Concept",
     label: "Swap / Liquidity / Rewards",
-    copy: "CNYANの投稿fee、報酬決済、流動性、バーン、トレジャリーをつなぐDEX構想です。",
+    copy: "A DEX concept connecting CNYAN posting fees, reward settlement, liquidity, burn, and treasury flows.",
     image: images.community,
   },
 ];
@@ -187,7 +190,8 @@ function HomeSite({ onNavigate }) {
           <p>CNYAN Network</p>
           <SplitHeading text="WE ARE CNYAN" />
           <span>
-            CNYANは、ミッションを作る人、挑戦する人、Proofを提出する人をつなぐコミュニティ報酬ネットワークです。紹介から各デモまで、ひとつの流れで体験できます。
+            CNYAN connects mission creators, challengers, proof submissions, and token rewards in one community reward network.
+            Move from the introduction into live demos without leaving the page.
           </span>
           <div className="hero-actions">
             <button className="primary-button sized" type="button" onClick={() => onNavigate("challenge")}>Launch challenge</button>
@@ -197,7 +201,7 @@ function HomeSite({ onNavigate }) {
         </div>
       </section>
       <section id="demo-directory" className="section">
-        <SectionTitle label="Demo Hub" title="CNYANの主要デモへすぐ移動できます" />
+        <SectionTitle label="Demo Hub" title="Explore the core CNYAN demos" />
         <div className="demo-grid">
           {demoCards.map((card) => (
             <DemoCard key={card.id} card={card} onNavigate={onNavigate} />
@@ -206,17 +210,17 @@ function HomeSite({ onNavigate }) {
       </section>
       <section className="section split-section">
         <div>
-          <SectionTitle label="What CNYAN does" title="ミッション、Proof、報酬をひとつの流れに" align="left" />
+          <SectionTitle label="What CNYAN does" title="Missions, proof, and rewards in one loop" align="left" />
           <p>
-            CNYANは、コミュニティが依頼を作り、参加者が成果を示し、承認後に報酬を受け取る仕組みをわかりやすく見せるためのプロトタイプです。
-            トップで全体像を伝え、下のカードから各デモへ自然に進める構成にしています。
+            CNYAN is a prototype for community missions: creators post tasks, participants submit proof,
+            and approved work can settle into CNYAN or SOL rewards.
           </p>
         </div>
         <div className="feature-list">
-          <button type="button" onClick={() => onNavigate("challenge")}>Challenge: ミッションを選んでProofを提出</button>
-          <button type="button" onClick={() => onNavigate("answer")}>AI Answer: ルート情報から回答を生成</button>
-          <button type="button" onClick={() => onNavigate("route")}>Route: ルートを検証して報酬へ進む</button>
-          <button type="button" onClick={() => onNavigate("dex")}>DEX: Swap、流動性、報酬決済を設計</button>
+          <button type="button" onClick={() => onNavigate("challenge")}>Challenge: choose a mission and submit proof</button>
+          <button type="button" onClick={() => onNavigate("answer")}>AI Answer: generate route decisions from proof signals</button>
+          <button type="button" onClick={() => onNavigate("route")}>Route: verify route progress and move toward rewards</button>
+          <button type="button" onClick={() => onNavigate("dex")}>DEX: connect swaps, liquidity, and reward settlement</button>
         </div>
       </section>
     </>
@@ -350,7 +354,7 @@ function PriceTradePanel({ compact = false }) {
     <div className={`price-panel ${compact ? "compact" : ""}`}>
       <div className="price-head">
         <span>Live CNYAN Price</span>
-        <strong>{ready ? formatUsd(price.priceUsd) : price.status === "error" ? "取得待ち" : "Loading"}</strong>
+        <strong>{ready ? formatUsd(price.priceUsd) : price.status === "error" ? "Unavailable" : "Loading"}</strong>
       </div>
       <div className="price-grid">
         <HudStat label="24h" value={ready && Number.isFinite(Number(price.change24h)) ? `${Number(price.change24h).toFixed(2)}%` : "--"} />
@@ -358,11 +362,14 @@ function PriceTradePanel({ compact = false }) {
         <HudStat label="MCap" value={ready ? formatCompact(price.marketCap, "$") : "--"} />
       </div>
       <div className="trade-actions">
-        <a className="primary-button" href={PHANTOM_SWAP_URL} target="_blank" rel="noreferrer">Open Phantom Swap</a>
-        <a className="secondary-button" href={ready ? price.pairUrl : DEXSCREENER_URL} target="_blank" rel="noreferrer">View chart</a>
+        <a className="primary-button" href={PHANTOM_SWAP_URL} target="_blank" rel="noreferrer">Buy CNYAN with SOL</a>
+        <a className="secondary-button" href={PHANTOM_NYANMARU_TO_CNYAN_URL} target="_blank" rel="noreferrer">Sell NYANMARU for CNYAN</a>
+        <a className="secondary-button" href={ready ? price.pairUrl : DEXSCREENER_URL} target="_blank" rel="noreferrer">Open DEX</a>
       </div>
       <p className="price-note">
-        DexScreener live data. CA: <code>{CA}</code>
+        DexScreener live data. CNYAN CA: <code>{CA}</code>
+        <br />
+        NYANMARU sell token: <code>{NYANMARU_CA}</code>
       </p>
     </div>
   );
@@ -375,8 +382,8 @@ function AnswerDemo({ onNavigate }) {
       <div className="answer-layout">
         <div className="ask-panel">
           <span>Question</span>
-          <h2>次に公開すべきCNYANルートは？</h2>
-          <p>地域データ、参加しやすさ、Proofの集まりやすさを参照し、回答と根拠をまとめて表示します。</p>
+          <h2>Which CNYAN route should launch next?</h2>
+          <p>Route data, local participation signals, and proof availability are used to present a decision with supporting evidence.</p>
           <div className="source-row">
             <span>Tokyo Node</span>
             <span>Seoul Node</span>
@@ -385,14 +392,15 @@ function AnswerDemo({ onNavigate }) {
         </div>
         <div className="answer-panel">
           <span>Answer</span>
-          <h3>最初は Tokyo - Seoul - Taipei ルートが最適です。</h3>
+          <h3>Start with the Tokyo - Seoul - Taipei route.</h3>
           <p>
-            このルートは現地Proofを集めやすく、コミュニティ投稿も増やしやすい構成です。短い移動ストーリーを作れるため、最初の公開デモとして説明しやすくなります。
+            This route is easy to explain, simple to verify, and strong for community posts.
+            It creates a short travel story while testing both CNYAN and SOL reward paths.
           </p>
           <div className="evidence-list">
-            <p>1. Proof撮影の条件がわかりやすい。</p>
-            <p>2. 投稿・翻訳・拡散の参加者を集めやすい。</p>
-            <p>3. CNYAN報酬とSOL報酬の両方をテストできる。</p>
+            <p>1. Proof capture requirements are easy to understand.</p>
+            <p>2. Posts, translations, and community shares are easy to coordinate.</p>
+            <p>3. The route can test both CNYAN and SOL rewards.</p>
           </div>
         </div>
       </div>
@@ -404,12 +412,12 @@ function RouteDemo({ onNavigate }) {
   return (
     <section className="demo-page">
       <DemoTop onNavigate={onNavigate} title="Route Challenge Demo" label="Route proof network" />
-      <div className="odyssey-board">
-        {["ノードを選ぶ", "Proofを集める", "ルートを検証する", "報酬を受け取る"].map((step, index) => (
+      <div className="route-board">
+        {["Choose a node", "Collect proof", "Verify the route", "Claim reward"].map((step, index) => (
           <div key={step} className="route-step">
             <span>0{index + 1}</span>
             <strong>{step}</strong>
-            <p>{index === 0 ? "対象エリアとミッション条件を確認します。" : index === 1 ? "写真、投稿、翻訳などの証跡を提出します。" : index === 2 ? "提出内容がルート条件を満たしているか確認します。" : "承認後、設定された報酬を受け取ります。"}</p>
+            <p>{index === 0 ? "Review the target area and mission rules." : index === 1 ? "Submit photos, posts, translations, or route evidence." : index === 2 ? "Check whether the proof matches the route conditions." : "Receive the configured reward after approval."}</p>
           </div>
         ))}
       </div>
@@ -422,10 +430,10 @@ function RouteDemo({ onNavigate }) {
 
 function DexDemo({ onNavigate }) {
   const lanes = [
-    ["Quest Fees", "Challenge投稿feeをCNYAN需要として設計。"],
-    ["Reward Settlement", "CNYAN / SOL / USDC報酬を安全に決済。"],
-    ["Liquidity Pools", "CNYAN-SOLを中心にルート流動性を形成。"],
-    ["Burn + Treasury", "一部をバーン、一部をトレジャリーへ配分。"],
+    ["Quest Fees", "Posting fees create recurring CNYAN demand."],
+    ["Reward Settlement", "CNYAN, SOL, and USDC rewards can settle through clear routes."],
+    ["Liquidity Pools", "CNYAN-SOL liquidity supports reward conversion."],
+    ["Burn + Treasury", "Fees can split between burn, treasury, and seasonal rewards."],
   ];
 
   return (
@@ -435,18 +443,18 @@ function DexDemo({ onNavigate }) {
         <PriceTradePanel />
         <div className="answer-panel">
           <span>DEX Thesis</span>
-          <h3>チャレンジ経済圏に必要な交換・決済レイヤーを作る。</h3>
+          <h3>Build the exchange and settlement layer for a challenge economy.</h3>
           <p>
-            CNYAN DEXは単なるSwap画面ではなく、Quest投稿fee、Claim deposit、報酬決済、流動性、バーン、トレジャリーをつなぐための設計です。
-            Quest Protocolの活動量が、そのままCNYANの利用文脈になります。
+            The CNYAN DEX concept is more than a swap screen. It connects quest posting fees,
+            claim deposits, reward settlement, liquidity, burn mechanics, and treasury routing.
           </p>
           <div className="evidence-list">
-            <p>Post Quest: 投稿feeがCNYAN需要を作る。</p>
-            <p>Claim Quest: depositで荒らしを抑え、完了時に返却する。</p>
-            <p>Prove + Settle: AI/creator/community確認後に報酬を決済する。</p>
+            <p>Post Quest: posting fees create CNYAN usage.</p>
+            <p>Claim Quest: deposits reduce spam and return on completion.</p>
+            <p>Prove + Settle: rewards settle after AI, creator, or community review.</p>
           </div>
         </div>
-        <div className="odyssey-board dex-board">
+        <div className="route-board dex-board">
           {lanes.map(([title, copy], index) => (
             <div key={title} className="route-step">
               <span>0{index + 1}</span>
