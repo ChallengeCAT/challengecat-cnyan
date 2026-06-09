@@ -236,7 +236,9 @@ function TokenSpotlight({ onNavigate }) {
         <h1>CNYAN Token</h1>
         <div className="ca-hero">
           <span>Contract Address</span>
-          <strong>{CA}</strong>
+          <a className="ca-link" href={DEXSCREENER_URL} aria-label="Open CNYAN on DexScreener">
+            <strong>{CA}</strong>
+          </a>
         </div>
       </div>
       <div className="dex-frame-wrap">

@@ -237,7 +237,26 @@ body {
   text-transform: uppercase;
 }
 
+.ca-link {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ca-link:hover strong,
+.ca-link:focus-visible strong {
+  color: #fff08a;
+}
+
+.ca-link:focus-visible {
+  outline: 3px solid rgba(112, 255, 129, 0.72);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
 .ca-hero strong {
+  display: block;
   color: #ffd166;
   font-family: "Arial Black", Impact, system-ui, sans-serif;
   font-size: clamp(1.25rem, 3vw, 2.8rem);
