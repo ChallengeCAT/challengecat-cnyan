@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const CA = "Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump";
 const NYANMARU_CA = "FpECzw6x8RG4VBXfnVg3UJd8pq9CCxJUSWCKb4gebq8B";
-const SOL_CAIP = "solana:101/address:So11111111111111111111111111111111111111112";
 const CNYAN_CAIP = `solana:101/address:${CA}`;
 const NYANMARU_CAIP = `solana:101/address:${NYANMARU_CA}`;
 const PUBLIC_SITE_URL = "https://challengecat.github.io/challengecat-cnyan/";
@@ -11,7 +10,7 @@ const DEXSCREENER_PAIR = "2asrDYfjyAuKvdRAaQsMJ9CTEj7j7BrNXC5dGUVwtVdZ";
 const DEXSCREENER_API = `https://api.dexscreener.com/token-pairs/v1/solana/${CA}`;
 const DEXSCREENER_URL = `https://dexscreener.com/solana/${DEXSCREENER_PAIR}`;
 const DEXSCREENER_EMBED_URL = `https://dexscreener.com/solana/${DEXSCREENER_PAIR}?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15`;
-const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
+const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=`;
 const PHANTOM_NYANMARU_TO_CNYAN_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(NYANMARU_CAIP)}`;
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
