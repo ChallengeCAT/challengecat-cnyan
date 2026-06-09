@@ -9,8 +9,8 @@ const NYANMARU_CAIP = `solana:101/address:${NYANMARU_CA}`;
 const PUBLIC_SITE_URL = "https://challengecat.github.io/challengecat-cnyan/";
 const DEXSCREENER_API = `https://api.dexscreener.com/token-pairs/v1/solana/${CA}`;
 const DEXSCREENER_URL = `https://dexscreener.com/solana/${CA}`;
-const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
-const PHANTOM_NYANMARU_TO_CNYAN_URL = `https://phantom.app/ul/v1/swap?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(NYANMARU_CAIP)}`;
+const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
+const PHANTOM_NYANMARU_TO_CNYAN_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(NYANMARU_CAIP)}`;
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 const logo = asset("/cnyan-logo.png");
@@ -346,6 +346,20 @@ function formatCompact(value, prefix = "") {
   return `${prefix}${new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(numeric)}`;
 }
 
+function openMobileSwap(event, url) {
+  if (!/Android|iPhone|iPad|iPod/i.test(window.navigator.userAgent)) return;
+  event.preventDefault();
+  window.location.href = url;
+}
+
+function SwapLink({ className, href, children }) {
+  return (
+    <a className={className} href={href} target="_blank" rel="noreferrer" onClick={(event) => openMobileSwap(event, href)}>
+      {children}
+    </a>
+  );
+}
+
 function PriceTradePanel({ compact = false }) {
   const price = useLivePrice();
   const ready = price.status === "ready";
@@ -362,8 +376,8 @@ function PriceTradePanel({ compact = false }) {
         <HudStat label="MCap" value={ready ? formatCompact(price.marketCap, "$") : "--"} />
       </div>
       <div className="trade-actions">
-        <a className="primary-button" href={PHANTOM_SWAP_URL} target="_blank" rel="noreferrer">Buy CNYAN with SOL</a>
-        <a className="secondary-button" href={PHANTOM_NYANMARU_TO_CNYAN_URL} target="_blank" rel="noreferrer">Sell NYANMARU for CNYAN</a>
+        <SwapLink className="primary-button" href={PHANTOM_SWAP_URL}>Buy CNYAN with SOL</SwapLink>
+        <SwapLink className="secondary-button" href={PHANTOM_NYANMARU_TO_CNYAN_URL}>Sell NYANMARU for CNYAN</SwapLink>
         <a className="secondary-button" href={ready ? price.pairUrl : DEXSCREENER_URL} target="_blank" rel="noreferrer">Open DEX</a>
       </div>
       <p className="price-note">
