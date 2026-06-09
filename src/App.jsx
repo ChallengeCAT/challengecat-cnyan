@@ -354,7 +354,7 @@ function openMobileSwap(event, url) {
 
 function SwapLink({ className, href, children }) {
   return (
-    <a className={className} href={href} target="_blank" rel="noreferrer" onClick={(event) => openMobileSwap(event, href)}>
+    <a className={className} href={href} onClick={(event) => openMobileSwap(event, href)}>
       {children}
     </a>
   );
