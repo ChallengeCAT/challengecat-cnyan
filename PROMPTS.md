@@ -1,6 +1,6 @@
 # CNYAN Demo Production Prompts
 
-このプロンプト集は、CNYAN紹介サイト、Challengeデモ、Perplexデモ、Odyssey Challengeデモを同じ世界観で作るためのものです。参照するのは構図、テンポ、演出の考え方だけで、既存サイトのキャラクター、ロゴ、背景、文章は使わないでください。
+このプロンプト集は、CNYAN紹介サイト、Challengeデモ、AI回答デモ、Route Challengeデモを同じ世界観で作るためのものです。参照するのは構図、テンポ、演出の考え方だけで、既存サイトのキャラクター、ロゴ、背景、文章は使わないでください。
 
 ## 1. Overall Direction
 
@@ -23,7 +23,7 @@ Design a short loading animation for a CNYAN website: dark background, small dri
 ## 4. Homepage UI Prompt
 
 ```text
-Build a landing page for CNYAN that opens with a full-screen illustrated hero, sticky comic-style pill navigation, large split-letter headline "WE ARE CNYAN", floating coin sprites, dark lower gradient, and a clear call to action into the Challenge demo. Below the hero, create a Demo Hub with three cards: CNYAN Challenge Demo, Perplex Demo, and Odyssey Challenge Demo. The flow should feel like a playable intro, not a corporate landing page.
+Build a landing page for CNYAN that opens with a full-screen illustrated hero, sticky comic-style pill navigation, large split-letter headline "WE ARE CNYAN", floating coin sprites, dark lower gradient, and a clear call to action into the Challenge demo. Below the hero, create a Demo Hub with cards for CNYAN Challenge Demo, AI Answer Demo, Route Challenge Demo, and CNYAN DEX Concept. The flow should feel like a playable intro, not a corporate landing page.
 ```
 
 ## 5. Challenge Demo Prompt
@@ -32,16 +32,16 @@ Build a landing page for CNYAN that opens with a full-screen illustrated hero, s
 Create an interactive CNYAN Challenge demo. Layout: top HUD, left bounty list, center world or Asia map with reward pins, right mission detail panel. Users can choose a challenger name, filter rewards by CNYAN or SOL, select map pins, submit proof, and see claimed state. Use original CNYAN cat coin markers, dark glass UI, neon lime and gold accents, compact readable controls, and smooth hover or claim animations.
 ```
 
-## 6. Perplex Demo Prompt
+## 6. AI Answer Demo Prompt
 
 ```text
-Create a Perplex-style answer demo for CNYAN using Odyssey Network data. The screen should show a user question, source nodes, generated answer, and evidence cards. Tone should be clear and product-like: "Which route should launch first?", "Answer", "Evidence". Use dark panels, subtle neon highlights, animated glow, and no fake technical jargon unless it helps explain the demo.
+Create an AI answer demo for CNYAN using route and proof data. The screen should show a user question, source nodes, generated answer, and evidence cards. Tone should be clear and product-like: "Which route should launch first?", "Answer", "Evidence". Use dark panels, subtle neon highlights, animated glow, and no fake technical jargon unless it helps explain the demo.
 ```
 
-## 7. Odyssey Challenge Demo Prompt
+## 7. Route Challenge Demo Prompt
 
 ```text
-Create an Odyssey Network challenge demo for CNYAN. Show four steps: choose a node, collect proof, verify the route, claim reward. Include an Asia route map and compact step cards. The design should feel like a mission board with a route validation layer, using dark UI, lime highlights, and gold CNYAN coin accents.
+Create a route challenge demo for CNYAN. Show four steps: choose a node, collect proof, verify the route, claim reward. Include an Asia route map and compact step cards. The design should feel like a mission board with a route validation layer, using dark UI, lime highlights, and gold CNYAN coin accents.
 ```
 
 ## 8. Copywriting Prompt

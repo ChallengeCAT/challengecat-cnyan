@@ -15,8 +15,8 @@ CNYAN은 ChallengeCAT의 커뮤니티 미션, Proof, 토큰 보상 콘셉트 프
 - 챌린지 생성
 - Proof 제출
 - 바운티 맵
-- Odyssey Network 루트 정보
-- Perplex 스타일 답변 UI
+- 경로 정보 맥락
+- AI 답변 UI
 - CNYAN/SOL 보상 경험
 
 ## 익명성 원칙

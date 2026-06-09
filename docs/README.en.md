@@ -15,8 +15,8 @@ This repository presents a polished demo site and product narrative for:
 - challenge creation
 - proof submission
 - bounty maps
-- Odyssey Network route context
-- Perplex-style answer flow
+- Route intelligence context
+- AI answer flow
 - CNYAN/SOL reward experiences
 
 ## Identity Safety

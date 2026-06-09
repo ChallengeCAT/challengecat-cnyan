@@ -17,8 +17,8 @@ CNYAN connects missions, proof submissions, bounty maps, and reward flows into o
 - Solana token identity
 - CNYAN/SOL reward flows
 - map-based challenges
-- Odyssey Network route context
-- Perplex-style answer demos
+- Route intelligence context
+- AI answer demos
 - multilingual documentation
 
 ## Links

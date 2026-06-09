@@ -63,7 +63,7 @@ Proof may include:
 - post URL
 - route check-in
 - translation or written output
-- Odyssey node completion
+- route node completion
 
 Only hashes and status should be stored on-chain in an MVP. Large media should stay off-chain.
 

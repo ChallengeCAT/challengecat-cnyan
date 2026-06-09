@@ -15,8 +15,8 @@ CNYAN 是 ChallengeCAT 的社区任务、Proof 和 Token 奖励概念项目。
 - 挑战任务创建
 - Proof 提交
 - 赏金地图
-- Odyssey Network 路线信息
-- Perplex 风格回答界面
+- 路线信息上下文
+- AI 回答界面
 - CNYAN/SOL 奖励体验
 
 ## 隐私原则

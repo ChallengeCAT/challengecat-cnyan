@@ -257,10 +257,91 @@ body {
   line-height: 1.75;
 }
 
+.hero-copy .price-note,
+.price-panel .price-note {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: none;
+}
+
 .hero-actions {
   gap: 0.8rem;
   flex-wrap: wrap;
   margin-top: 1.6rem;
+}
+
+.price-panel {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 42rem;
+  margin-top: 1.2rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: rgba(5, 10, 13, 0.78);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+.price-panel.compact {
+  max-width: 48rem;
+}
+
+.price-head,
+.trade-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.price-head {
+  justify-content: space-between;
+}
+
+.price-head span {
+  color: #70ff81;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.price-head strong {
+  color: #ffd166;
+  font-family: "Arial Black", Impact, system-ui, sans-serif;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.price-panel .hud-stat {
+  min-width: 0;
+}
+
+.trade-actions .primary-button,
+.trade-actions .secondary-button {
+  width: auto;
+  min-width: 10rem;
+  padding: 0 1rem;
+  text-decoration: none;
+}
+
+.price-note {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.price-note code {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
 }
 
 .sized {
@@ -395,7 +476,7 @@ body {
   padding: 0 1rem;
 }
 
-.perplex-layout {
+.answer-layout {
   display: grid;
   grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
   gap: 1rem;
@@ -942,7 +1023,7 @@ body {
   .odyssey-board {
     grid-template-columns: 1fr 1fr;
   }
-  .perplex-layout,
+  .answer-layout,
   .dex-layout,
   .split-section {
     grid-template-columns: 1fr;
@@ -973,6 +1054,18 @@ body {
   }
   .demo-card {
     grid-template-rows: 11rem minmax(0, 1fr);
+  }
+  .price-head,
+  .trade-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+  .trade-actions .primary-button,
+  .trade-actions .secondary-button {
+    width: 100%;
   }
   .topbar { margin: 0.5rem; }
   .brand-block { min-width: 0; }

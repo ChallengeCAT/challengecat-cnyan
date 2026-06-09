@@ -1,14 +1,23 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const logo = "/cnyan-logo.png";
-const mapImage = "/cnyan-asia-map.svg";
+const CA = "Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump";
+const SOL_CAIP = "solana:101/address:So11111111111111111111111111111111111111112";
+const CNYAN_CAIP = `solana:101/address:${CA}`;
+const PUBLIC_SITE_URL = "https://challengecat.github.io/challengecat-cnyan/";
+const DEXSCREENER_API = `https://api.dexscreener.com/token-pairs/v1/solana/${CA}`;
+const DEXSCREENER_URL = `https://dexscreener.com/solana/${CA}`;
+const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
+const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
+const logo = asset("/cnyan-logo.png");
+const mapImage = asset("/cnyan-asia-map.svg");
 const images = {
-  hero: "/images/cnyan-hero-visual.png",
-  challenge: "/images/cnyan-challenge-visual.png",
-  travel: "/images/cnyan-travel-visual.png",
-  community: "/images/cnyan-community-visual.png",
-  trade: "/images/cnyan-trade-visual.png",
+  hero: asset("/images/cnyan-hero-visual.png"),
+  challenge: asset("/images/cnyan-challenge-visual.png"),
+  travel: asset("/images/cnyan-travel-visual.png"),
+  community: asset("/images/cnyan-community-visual.png"),
+  trade: asset("/images/cnyan-trade-visual.png"),
 };
 
 const demoCards = [
@@ -20,15 +29,15 @@ const demoCards = [
     image: images.challenge,
   },
   {
-    id: "perplex",
-    title: "Perplex Demo",
-    label: "Odyssey Network",
-    copy: "Odyssey Networkのノード情報をもとに、質問、根拠、回答までを一画面で見せる検索型デモです。",
+    id: "answer",
+    title: "AI Answer Demo",
+    label: "Route intelligence",
+    copy: "ルート情報、地域、Proofの集まりやすさをもとに、質問、根拠、回答までを一画面で見せるAI回答デモです。",
     image: images.trade,
   },
   {
-    id: "odyssey",
-    title: "Odyssey Challenge Demo",
+    id: "route",
+    title: "Route Challenge Demo",
     label: "Route proof",
     copy: "探索ルート、Proof提出、検証、報酬の受け取りまでの流れをチャレンジ形式で確認できます。",
     image: images.travel,
@@ -74,6 +83,20 @@ const feed = [
   "GoldPaw claimed a Singapore drop",
 ];
 
+const titleMap = {
+  home: "CNYAN",
+  challenge: "CNYAN - Challenge",
+  answer: "CNYAN - AI Answer",
+  route: "CNYAN - Route",
+  dex: "CNYAN - DEX",
+};
+
+function normalizeView(nextView) {
+  if (nextView === "legacy-answer") return "answer";
+  if (nextView === "legacy-route") return "route";
+  return nextView || "home";
+}
+
 function savedName() {
   try {
     return localStorage.getItem("cnyan-challenger-name") || "";
@@ -83,17 +106,17 @@ function savedName() {
 }
 
 export default function App() {
-  const [view, setView] = useState(() => window.location.hash.replace("#", "") || "home");
+  const [view, setView] = useState(() => normalizeView(window.location.hash.replace("#", "")));
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const onHashChange = () => setView(window.location.hash.replace("#", "") || "home");
+    const onHashChange = () => setView(normalizeView(window.location.hash.replace("#", "")));
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   useEffect(() => {
-    document.title = view === "home" ? "CNYAN" : `CNYAN - ${view}`;
+    document.title = titleMap[view] || "CNYAN";
   }, [view]);
 
   useEffect(() => {
@@ -102,8 +125,9 @@ export default function App() {
   }, []);
 
   function navigate(nextView) {
-    window.location.hash = nextView === "home" ? "" : nextView;
-    setView(nextView);
+    const target = normalizeView(nextView);
+    window.location.hash = target === "home" ? "" : target;
+    setView(target);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -116,8 +140,8 @@ export default function App() {
         <>
           <SiteHeader onNavigate={navigate} />
           {view === "home" && <HomeSite onNavigate={navigate} />}
-          {view === "perplex" && <PerplexDemo onNavigate={navigate} />}
-          {view === "odyssey" && <OdysseyDemo onNavigate={navigate} />}
+          {view === "answer" && <AnswerDemo onNavigate={navigate} />}
+          {view === "route" && <RouteDemo onNavigate={navigate} />}
           {view === "dex" && <DexDemo onNavigate={navigate} />}
         </>
       )}
@@ -145,8 +169,8 @@ function SiteHeader({ onNavigate }) {
       <nav>
         <button type="button" onClick={() => onNavigate("home")}>Home</button>
         <button type="button" onClick={() => onNavigate("challenge")}>Challenge</button>
-        <button type="button" onClick={() => onNavigate("perplex")}>Perplex</button>
-        <button type="button" onClick={() => onNavigate("odyssey")}>Odyssey</button>
+        <button type="button" onClick={() => onNavigate("answer")}>AI Answer</button>
+        <button type="button" onClick={() => onNavigate("route")}>Route</button>
         <button type="button" onClick={() => onNavigate("dex")}>DEX</button>
       </nav>
     </header>
@@ -169,6 +193,7 @@ function HomeSite({ onNavigate }) {
             <button className="primary-button sized" type="button" onClick={() => onNavigate("challenge")}>Launch challenge</button>
             <a className="secondary-link" href="#demo-directory">Explore demos</a>
           </div>
+          <PriceTradePanel compact />
         </div>
       </section>
       <section id="demo-directory" className="section">
@@ -189,8 +214,8 @@ function HomeSite({ onNavigate }) {
         </div>
         <div className="feature-list">
           <button type="button" onClick={() => onNavigate("challenge")}>Challenge: ミッションを選んでProofを提出</button>
-          <button type="button" onClick={() => onNavigate("perplex")}>Perplex: ノード情報から回答を生成</button>
-          <button type="button" onClick={() => onNavigate("odyssey")}>Odyssey: ルートを検証して報酬へ進む</button>
+          <button type="button" onClick={() => onNavigate("answer")}>AI Answer: ルート情報から回答を生成</button>
+          <button type="button" onClick={() => onNavigate("route")}>Route: ルートを検証して報酬へ進む</button>
           <button type="button" onClick={() => onNavigate("dex")}>DEX: Swap、流動性、報酬決済を設計</button>
         </div>
       </section>
@@ -256,15 +281,102 @@ function DemoCard({ card, onNavigate }) {
   );
 }
 
-function PerplexDemo({ onNavigate }) {
+function useLivePrice() {
+  const [state, setState] = useState({ status: "loading" });
+
+  useEffect(() => {
+    let active = true;
+    let timer;
+
+    async function loadPrice() {
+      try {
+        const response = await fetch(DEXSCREENER_API, { headers: { Accept: "application/json" } });
+        if (!response.ok) throw new Error(`Price request failed: ${response.status}`);
+        const pairs = await response.json();
+        const sorted = Array.isArray(pairs)
+          ? [...pairs].sort((a, b) => (Number(b.liquidity?.usd) || Number(b.volume?.h24) || 0) - (Number(a.liquidity?.usd) || Number(a.volume?.h24) || 0))
+          : [];
+        const pair = sorted[0];
+        if (!pair) throw new Error("No CNYAN pair found");
+        if (active) {
+          setState({
+            status: "ready",
+            priceUsd: pair.priceUsd,
+            priceNative: pair.priceNative,
+            marketCap: pair.marketCap,
+            fdv: pair.fdv,
+            volume24h: pair.volume?.h24,
+            change24h: pair.priceChange?.h24,
+            dexId: pair.dexId,
+            pairUrl: pair.url,
+            updatedAt: new Date(),
+          });
+        }
+      } catch (error) {
+        if (active) setState({ status: "error", message: error.message });
+      }
+    }
+
+    loadPrice();
+    timer = window.setInterval(loadPrice, 30000);
+    return () => {
+      active = false;
+      window.clearInterval(timer);
+    };
+  }, []);
+
+  return state;
+}
+
+function formatUsd(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return "--";
+  if (numeric < 0.0001) return `$${numeric.toPrecision(4)}`;
+  if (numeric < 1) return `$${numeric.toFixed(6)}`;
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 4 }).format(numeric);
+}
+
+function formatCompact(value, prefix = "") {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return "--";
+  return `${prefix}${new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(numeric)}`;
+}
+
+function PriceTradePanel({ compact = false }) {
+  const price = useLivePrice();
+  const ready = price.status === "ready";
+
+  return (
+    <div className={`price-panel ${compact ? "compact" : ""}`}>
+      <div className="price-head">
+        <span>Live CNYAN Price</span>
+        <strong>{ready ? formatUsd(price.priceUsd) : price.status === "error" ? "取得待ち" : "Loading"}</strong>
+      </div>
+      <div className="price-grid">
+        <HudStat label="24h" value={ready && Number.isFinite(Number(price.change24h)) ? `${Number(price.change24h).toFixed(2)}%` : "--"} />
+        <HudStat label="Volume" value={ready ? formatCompact(price.volume24h, "$") : "--"} />
+        <HudStat label="MCap" value={ready ? formatCompact(price.marketCap, "$") : "--"} />
+      </div>
+      <div className="trade-actions">
+        <a className="primary-button" href={PHANTOM_SWAP_URL} target="_blank" rel="noreferrer">Open Phantom Swap</a>
+        <a className="secondary-button" href={ready ? price.pairUrl : DEXSCREENER_URL} target="_blank" rel="noreferrer">View chart</a>
+      </div>
+      <p className="price-note">
+        DexScreener live data. CA: <code>{CA}</code>
+      </p>
+    </div>
+  );
+}
+
+function AnswerDemo({ onNavigate }) {
   return (
     <section className="demo-page">
-      <DemoTop onNavigate={onNavigate} title="Perplex Demo" label="Odyssey Network answer layer" />
-      <div className="perplex-layout">
+      <DemoTop onNavigate={onNavigate} title="AI Answer Demo" label="Route intelligence layer" />
+      <div className="answer-layout">
         <div className="ask-panel">
           <span>Question</span>
           <h2>次に公開すべきCNYANルートは？</h2>
-          <p>Odyssey Networkのノード、地域、Proofの集まりやすさを参照し、回答と根拠をまとめて表示します。</p>
+          <p>地域データ、参加しやすさ、Proofの集まりやすさを参照し、回答と根拠をまとめて表示します。</p>
           <div className="source-row">
             <span>Tokyo Node</span>
             <span>Seoul Node</span>
@@ -288,10 +400,10 @@ function PerplexDemo({ onNavigate }) {
   );
 }
 
-function OdysseyDemo({ onNavigate }) {
+function RouteDemo({ onNavigate }) {
   return (
     <section className="demo-page">
-      <DemoTop onNavigate={onNavigate} title="Odyssey Challenge Demo" label="Route proof network" />
+      <DemoTop onNavigate={onNavigate} title="Route Challenge Demo" label="Route proof network" />
       <div className="odyssey-board">
         {["ノードを選ぶ", "Proofを集める", "ルートを検証する", "報酬を受け取る"].map((step, index) => (
           <div key={step} className="route-step">
@@ -302,7 +414,7 @@ function OdysseyDemo({ onNavigate }) {
         ))}
       </div>
       <div className="route-map">
-        <img src={mapImage} alt="Odyssey route map" />
+        <img src={mapImage} alt="Route proof map" />
       </div>
     </section>
   );
@@ -320,6 +432,7 @@ function DexDemo({ onNavigate }) {
     <section className="demo-page">
       <DemoTop onNavigate={onNavigate} title="CNYAN DEX Concept" label="Quest-native exchange layer" />
       <div className="dex-layout">
+        <PriceTradePanel />
         <div className="answer-panel">
           <span>DEX Thesis</span>
           <h3>チャレンジ経済圏に必要な交換・決済レイヤーを作る。</h3>
@@ -437,8 +550,8 @@ function TopBar({ name, mode, setMode, active, claimedCount, onHome, onDemo }) {
         </div>
       </button>
       <div className="topbar-actions">
-        <button className="small-nav" type="button" onClick={() => onDemo("perplex")}>Perplex</button>
-        <button className="small-nav" type="button" onClick={() => onDemo("odyssey")}>Odyssey</button>
+        <button className="small-nav" type="button" onClick={() => onDemo("answer")}>AI Answer</button>
+        <button className="small-nav" type="button" onClick={() => onDemo("route")}>Route</button>
         <div className="segmented" aria-label="Map mode">
           <button className={mode === "flat" ? "active" : ""} type="button" onClick={() => setMode("flat")}>Flat</button>
           <button className={mode === "globe" ? "active" : ""} type="button" onClick={() => setMode("globe")}>Globe</button>

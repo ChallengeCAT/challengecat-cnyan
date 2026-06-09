@@ -5,7 +5,7 @@ This repository is designed to look credible, organized, and useful for a Solana
 ## Recommended Public Description
 
 ```text
-CNYAN by ChallengeCAT — Solana community challenge demo with bounty maps, proof submission, Odyssey routes, and CNYAN/SOL reward flows.
+CNYAN by ChallengeCAT — Solana community challenge demo with bounty maps, proof submission, route intelligence, and CNYAN/SOL reward flows.
 ```
 
 ## Recommended Topics

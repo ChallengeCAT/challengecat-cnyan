@@ -64,9 +64,11 @@ The current demo includes:
 
 - A CNYAN introduction site.
 - A Challenge bounty map.
-- A Perplex-style answer demo using Odyssey Network context.
-- An Odyssey route challenge demo.
+- An AI answer demo using route and proof context.
+- A route challenge demo.
 - A CNYAN DEX concept demo.
+- Live CNYAN price display using DexScreener data.
+- A Phantom Wallet swap deep link.
 - PerpSquad-inspired motion translated into original CNYAN assets: loading splash, floating coins, split-letter headlines, animated panels, and map pins.
 
 The DEX concept connects:
@@ -111,15 +113,21 @@ npm run build
 Default local URL:
 
 ```text
-http://127.0.0.1:5174/
+http://127.0.0.1:5173/
+```
+
+Published site:
+
+```text
+https://challengecat.github.io/challengecat-cnyan/
 ```
 
 Routes:
 
 - `/` - CNYAN introduction site
 - `/#challenge` - Challenge bounty map
-- `/#perplex` - Perplex-style Odyssey answer demo
-- `/#odyssey` - Odyssey route challenge demo
+- `/#answer` - AI answer demo
+- `/#route` - Route challenge demo
 - `/#dex` - CNYAN DEX concept
 
 ## Privacy & Identity Policy
@@ -161,8 +169,8 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 
 - CNYAN紹介サイト
 - Challengeバウンティマップ
-- Odyssey Networkを使ったPerplex風デモ
-- Odysseyルートチャレンジデモ
+- ルート情報を使ったAI回答デモ
+- ルートチャレンジデモ
 - CNYAN DEX構想
 - Quest Protocol構想
 - AI評価用チェックリスト
@@ -194,8 +202,8 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 
 - CNYAN 介绍网站
 - Challenge 赏金地图
-- 基于 Odyssey Network 的 Perplex 风格演示
-- Odyssey 路线挑战演示
+- 基于路线信息的 AI 回答演示
+- 路线挑战演示
 - CNYAN DEX 概念
 - Quest Protocol 概念
 - AI 评估清单
@@ -227,8 +235,8 @@ Ayfr5kqa2VsXzo8D2CB59pUaLCeG5GnVHod4ixutpump
 
 - CNYAN 소개 사이트
 - Challenge 바운티 맵
-- Odyssey Network 기반 Perplex 스타일 데모
-- Odyssey 루트 챌린지 데모
+- 경로 정보를 활용한 AI 답변 데모
+- 경로 챌린지 데모
 - CNYAN DEX 콘셉트
 - Quest Protocol 콘셉트
 - AI 평가 체크리스트

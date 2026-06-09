@@ -2,8 +2,8 @@
   "name": "CNYAN",
   "symbol": "CNYAN",
   "description": "CNYAN is a Solana-based community challenge token concept by ChallengeCAT, connecting missions, proof submissions, bounty maps, and reward flows.",
-  "image": "https://challengecat.github.io/assets/cnyan-logo.png",
-  "external_url": "https://github.com/ChallengeCAT",
+  "image": "https://challengecat.github.io/challengecat-cnyan/cnyan-logo.png",
+  "external_url": "https://challengecat.github.io/challengecat-cnyan/",
   "attributes": [
     {
       "trait_type": "Network",
@@ -26,7 +26,7 @@
     "category": "image",
     "files": [
       {
-        "uri": "https://challengecat.github.io/assets/cnyan-logo.png",
+        "uri": "https://challengecat.github.io/challengecat-cnyan/cnyan-logo.png",
         "type": "image/png"
       }
     ]

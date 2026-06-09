@@ -2,7 +2,7 @@
   "name": "challengecat-cnyan",
   "version": "0.0.0",
   "private": true,
-  "description": "CNYAN by ChallengeCAT: Solana community challenge demo with bounty maps, proof submission, Odyssey routes, and CNYAN/SOL reward flows.",
+  "description": "CNYAN by ChallengeCAT: Solana community challenge demo with bounty maps, proof submission, route intelligence, and CNYAN/SOL reward flows.",
   "keywords": [
     "solana",
     "spl-token",
