@@ -34,7 +34,8 @@ body {
 }
 
 .loading-splash::before,
-.intro-hero::before {
+.intro-hero::before,
+.token-spotlight::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -151,6 +152,141 @@ body {
   text-transform: uppercase;
 }
 
+.token-spotlight {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1.1fr);
+  grid-template-rows: minmax(0, auto) minmax(0, auto);
+  align-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  min-height: min(92svh, 58rem);
+  overflow: hidden;
+  padding: 5.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(255, 209, 102, 0.22), transparent 30%),
+    radial-gradient(circle at 86% 18%, rgba(70, 255, 122, 0.18), transparent 32%),
+    linear-gradient(135deg, #040608 0%, #09120f 56%, #030506 100%);
+}
+
+.token-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(4, 6, 8, 0.04) 0%, rgba(4, 6, 8, 0.26) 72%, rgba(4, 6, 8, 0.92) 100%),
+    linear-gradient(90deg, rgba(4, 6, 8, 0.72), transparent 58%);
+}
+
+.token-copy,
+.dex-frame-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.token-copy {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.token-main {
+  align-self: start;
+}
+
+.token-trade {
+  align-self: start;
+}
+
+.token-main > p:first-child {
+  margin: 0;
+  color: #70ff81;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.token-copy h1 {
+  max-width: 52rem;
+  margin: 0;
+  font-family: "Arial Black", Impact, system-ui, sans-serif;
+  font-size: clamp(2.7rem, 6.2vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 7px 0 rgba(0, 0, 0, 0.78);
+}
+
+.ca-hero {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 58rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(5, 10, 13, 0.82);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+.ca-hero span {
+  color: #70ff81;
+  font-size: 0.75rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.ca-hero strong {
+  color: #ffd166;
+  font-family: "Arial Black", Impact, system-ui, sans-serif;
+  font-size: clamp(1.25rem, 3vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.token-summary {
+  max-width: 45rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.token-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.token-shortcuts .secondary-button {
+  width: auto;
+  min-width: 10rem;
+  padding: 0 1rem;
+}
+
+.dex-frame-wrap {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  min-height: 34rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: #030506;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(112, 255, 129, 0.08);
+}
+
+.dex-frame-wrap iframe {
+  display: block;
+  width: 100%;
+  min-height: 34rem;
+  height: 100%;
+  border: 0;
+}
+
 .intro-hero {
   position: relative;
   display: grid;
@@ -210,18 +346,18 @@ body {
 }
 
 .split-heading {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.02em;
+  display: block;
   text-shadow: 0 7px 0 rgba(0, 0, 0, 0.78);
+  text-wrap: balance;
 }
 
 .split-heading span {
-  display: inline-block;
+  display: inline;
   color: #fff;
 }
 
 .split-heading span.accent {
+  display: inline-block;
   color: #b6ff4d;
 }
 
@@ -1020,6 +1156,19 @@ body {
 
 @media (max-width: 1100px) {
   body { overflow: auto; }
+  .token-spotlight {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    min-height: auto;
+  }
+  .dex-frame-wrap {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .dex-frame-wrap,
+  .dex-frame-wrap iframe {
+    min-height: 32rem;
+  }
   .demo-grid,
   .route-board {
     grid-template-columns: 1fr 1fr;
@@ -1040,11 +1189,44 @@ body {
 
 @media (max-width: 680px) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    overflow-x: auto;
+    padding: 0.65rem 1rem;
   }
+  .site-brand { flex: 0 0 auto; }
+  .site-brand span { display: none; }
   .site-header nav {
+    flex: 1 0 auto;
+    flex-wrap: nowrap;
     justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .site-header nav button {
+    flex: 0 0 auto;
+  }
+  .token-spotlight {
+    padding: 2.2rem 1rem 2rem;
+  }
+  .token-copy h1 {
+    font-size: clamp(2.25rem, 11.5vw, 4rem);
+  }
+  .ca-hero {
+    padding: 0.85rem;
+  }
+  .ca-hero strong {
+    font-size: clamp(1rem, 6vw, 1.55rem);
+  }
+  .token-summary {
+    font-size: 0.92rem;
+  }
+  .token-shortcuts .secondary-button {
+    width: 100%;
+  }
+  .dex-frame-wrap,
+  .dex-frame-wrap iframe {
+    min-height: 27rem;
   }
   .intro-hero {
     min-height: 78svh;

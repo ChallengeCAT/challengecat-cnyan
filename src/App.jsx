@@ -7,8 +7,10 @@ const SOL_CAIP = "solana:101/address:So11111111111111111111111111111111111111112
 const CNYAN_CAIP = `solana:101/address:${CA}`;
 const NYANMARU_CAIP = `solana:101/address:${NYANMARU_CA}`;
 const PUBLIC_SITE_URL = "https://challengecat.github.io/challengecat-cnyan/";
+const DEXSCREENER_PAIR = "2asrDYfjyAuKvdRAaQsMJ9CTEj7j7BrNXC5dGUVwtVdZ";
 const DEXSCREENER_API = `https://api.dexscreener.com/token-pairs/v1/solana/${CA}`;
-const DEXSCREENER_URL = `https://dexscreener.com/solana/${CA}`;
+const DEXSCREENER_URL = `https://dexscreener.com/solana/${DEXSCREENER_PAIR}`;
+const DEXSCREENER_EMBED_URL = `https://dexscreener.com/solana/${DEXSCREENER_PAIR}?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15`;
 const PHANTOM_SWAP_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(SOL_CAIP)}`;
 const PHANTOM_NYANMARU_TO_CNYAN_URL = `https://phantom.app/ul/v1/swap/?buy=${encodeURIComponent(CNYAN_CAIP)}&sell=${encodeURIComponent(NYANMARU_CAIP)}`;
 const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
@@ -183,6 +185,7 @@ function SiteHeader({ onNavigate }) {
 function HomeSite({ onNavigate }) {
   return (
     <>
+      <TokenSpotlight onNavigate={onNavigate} />
       <section className="intro-hero">
         <img className="intro-hero-bg" src={images.hero} alt="" />
         <FloatingCoins />
@@ -197,7 +200,6 @@ function HomeSite({ onNavigate }) {
             <button className="primary-button sized" type="button" onClick={() => onNavigate("challenge")}>Launch challenge</button>
             <a className="secondary-link" href="#demo-directory">Explore demos</a>
           </div>
-          <PriceTradePanel compact />
         </div>
       </section>
       <section id="demo-directory" className="section">
@@ -227,21 +229,54 @@ function HomeSite({ onNavigate }) {
   );
 }
 
+function TokenSpotlight({ onNavigate }) {
+  return (
+    <section className="token-spotlight">
+      <div className="token-copy token-main">
+        <p>Live DexScreener Chart</p>
+        <h1>CNYAN Token</h1>
+        <div className="ca-hero">
+          <span>Contract Address</span>
+          <strong>{CA}</strong>
+        </div>
+      </div>
+      <div className="dex-frame-wrap">
+        <iframe
+          title="CNYAN DexScreener chart"
+          src={DEXSCREENER_EMBED_URL}
+          loading="lazy"
+          allow="clipboard-write"
+        />
+      </div>
+      <div className="token-copy token-trade">
+        <p className="token-summary">
+          The live DexScreener chart, market stats, Phantom swap routes, and DEX links are placed at the top so mobile users can verify the token before trading.
+        </p>
+        <PriceTradePanel compact />
+        <div className="token-shortcuts">
+          <button className="secondary-button" type="button" onClick={() => onNavigate("dex")}>DEX details</button>
+          <button className="secondary-button" type="button" onClick={() => onNavigate("challenge")}>Challenge demo</button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SplitHeading({ text }) {
   const accentStart = text.indexOf("CNYAN");
+  const prefix = accentStart >= 0 ? text.slice(0, accentStart) : text;
+  const accent = accentStart >= 0 ? text.slice(accentStart) : "";
+
   return (
     <h1 className="split-heading" aria-label={text}>
-      {text.split("").map((letter, index) => (
-        <motion.span
-          key={`${letter}-${index}`}
-          className={letter === " " ? "space" : accentStart >= 0 && index >= accentStart ? "accent" : ""}
-          initial={{ opacity: 0, y: 34, rotate: index % 2 ? 5 : -5 }}
-          animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={{ delay: 0.08 * index, duration: 0.48, ease: "easeOut" }}
-        >
-          {letter === " " ? "\u00a0" : letter}
+      <motion.span initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: "easeOut" }}>
+        {prefix}
+      </motion.span>
+      {accent && (
+        <motion.span className="accent" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.45, ease: "easeOut" }}>
+          {accent}
         </motion.span>
-      ))}
+      )}
     </h1>
   );
 }
@@ -346,15 +381,14 @@ function formatCompact(value, prefix = "") {
   return `${prefix}${new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 2 }).format(numeric)}`;
 }
 
-function openMobileSwap(event, url) {
-  if (!/Android|iPhone|iPad|iPod/i.test(window.navigator.userAgent)) return;
+function openSwap(event, url) {
   event.preventDefault();
   window.location.href = url;
 }
 
 function SwapLink({ className, href, children }) {
   return (
-    <a className={className} href={href} onClick={(event) => openMobileSwap(event, href)}>
+    <a className={className} href={href} onClick={(event) => openSwap(event, href)}>
       {children}
     </a>
   );
