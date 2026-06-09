@@ -1,0 +1,40 @@
+<svg width="1200" height="680" viewBox="0 0 1200 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="680" rx="28" fill="#050706"/>
+  <rect x="1" y="1" width="1198" height="678" rx="27" stroke="#46FF7A" stroke-opacity="0.25" stroke-width="2"/>
+  <g opacity="0.42">
+    <path d="M0 82H1200M0 164H1200M0 246H1200M0 328H1200M0 410H1200M0 492H1200M0 574H1200" stroke="#46FF7A" stroke-opacity="0.18"/>
+    <path d="M92 0V680M184 0V680M276 0V680M368 0V680M460 0V680M552 0V680M644 0V680M736 0V680M828 0V680M920 0V680M1012 0V680M1104 0V680" stroke="#46FF7A" stroke-opacity="0.18"/>
+  </g>
+  <path d="M733 117L783 132L823 178L875 187L916 230L962 245L992 286L955 315L909 312L874 351L823 333L772 358L731 327L685 341L641 305L607 330L572 298L607 260L657 241L672 196L706 174L733 117Z" fill="#46FF7A" fill-opacity="0.08" stroke="#46FF7A" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M614 342L659 371L704 366L748 395L782 440L765 492L711 503L665 474L618 485L583 448L547 454L518 420L541 378L581 374L614 342Z" fill="#FFD166" fill-opacity="0.08" stroke="#FFD166" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M843 379L891 397L918 438L902 487L856 510L812 488L799 444L816 405L843 379Z" fill="#46FF7A" fill-opacity="0.08" stroke="#46FF7A" stroke-opacity="0.42" stroke-width="2"/>
+  <path d="M929 510L974 529L996 575L969 618L919 606L895 564L929 510Z" fill="#FFD166" fill-opacity="0.08" stroke="#FFD166" stroke-opacity="0.42" stroke-width="2"/>
+  <path d="M524 219C586 238 633 263 690 313C747 363 796 402 862 450C909 484 940 520 965 579" stroke="#46FF7A" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="12 16"/>
+  <path d="M690 313C746 294 818 289 955 315" stroke="#FFD166" stroke-opacity="0.52" stroke-width="2" stroke-dasharray="8 14"/>
+  <g font-family="Arial Black, Impact, sans-serif" font-size="24" font-weight="900">
+    <text x="70" y="80" fill="#46FF7A">CNYAN TRAVEL LAYER</text>
+    <text x="70" y="112" fill="white" fill-opacity="0.55" font-size="15">Asia challenge route preview</text>
+    <text x="894" y="82" fill="#FFD166" font-size="16">DEMO MAP</text>
+  </g>
+  <g>
+    <circle cx="524" cy="219" r="13" fill="#050706" stroke="#46FF7A" stroke-width="5"/>
+    <circle cx="690" cy="313" r="13" fill="#050706" stroke="#FFD166" stroke-width="5"/>
+    <circle cx="766" cy="390" r="13" fill="#050706" stroke="#46FF7A" stroke-width="5"/>
+    <circle cx="862" cy="450" r="13" fill="#050706" stroke="#FFD166" stroke-width="5"/>
+    <circle cx="965" cy="579" r="13" fill="#050706" stroke="#46FF7A" stroke-width="5"/>
+    <circle cx="955" cy="315" r="13" fill="#050706" stroke="#FFD166" stroke-width="5"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="white">
+    <text x="540" y="213">JP</text>
+    <text x="706" y="307">TW</text>
+    <text x="782" y="384">HK</text>
+    <text x="879" y="444">TH</text>
+    <text x="982" y="573">ID</text>
+    <text x="971" y="309">KR</text>
+  </g>
+  <g opacity="0.72">
+    <rect x="70" y="548" width="286" height="66" fill="#0B1210" stroke="#46FF7A" stroke-opacity="0.32"/>
+    <text x="94" y="575" fill="#46FF7A" font-family="Arial Black, Impact, sans-serif" font-size="15">PROOF MODE</text>
+    <text x="94" y="598" fill="white" fill-opacity="0.62" font-family="Arial, sans-serif" font-size="15">GPS / PHOTO / CITY BOARD</text>
+  </g>
+</svg>
